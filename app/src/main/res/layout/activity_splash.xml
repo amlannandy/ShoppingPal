@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img_splash_background" />
 
-    <com.aknindustries.shoppingpal.utils.BoldTextView
+    <com.aknindustries.shoppingpal.utils.CustomBoldTextView
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
