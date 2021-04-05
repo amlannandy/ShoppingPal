@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "660644937072",
+    "project_id": "shoppingpal-92652",
+    "storage_bucket": "shoppingpal-92652.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660644937072:android:dc4d049aaedeb2f1a663b5",
+        "android_client_info": {
+          "package_name": "com.aknindustries.shoppingpal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660644937072-7lk6tca1u6md45vucqas9mc1eu5kk0d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY6RJNJ0P97-rLwWGXwe_FSoS-mRHlB3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660644937072-7lk6tca1u6md45vucqas9mc1eu5kk0d8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
