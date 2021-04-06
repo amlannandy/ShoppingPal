@@ -4,6 +4,153 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".LoginActivity">
+
+    <FrameLayout
+        android:id="@+id/header_frame"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/auth_header_image_height"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/content_description"
+            android:scaleType="fitXY"
+            android:src="@drawable/auth_screens_background" />
+
+        <com.aknindustries.shoppingpal.utils.CustomBoldTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textSize="@dimen/title_text_size" />
+
+    </FrameLayout>
+
+    <com.aknindustries.shoppingpal.utils.CustomBoldTextView
+        android:id="@+id/title_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36sp"
+        android:text="@string/title_login"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/title_text_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_frame" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="36dp"
+        android:hint="@string/et_hint_email_id"
+        android:textColorHint="@color/accent_pink"
+        app:layout_constraintTop_toBottomOf="@id/title_view">
+
+        <com.aknindustries.shoppingpal.utils.CustomEditText
+            android:id="@+id/et_email_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/et_padding"
+            android:textColor="@color/accent_pink"
+            android:textSize="@dimen/et_textSize"
+            tools:text="abc@xyz.com" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/et_hint_password"
+        android:textColorHint="@color/accent_pink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_email">
+
+        <com.aknindustries.shoppingpal.utils.CustomEditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:padding="@dimen/et_padding"
+            android:textColor="@color/primary_pink"
+            android:textSize="@dimen/et_textSize"
+            tools:text="123456" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.aknindustries.shoppingpal.utils.CustomTextView
+        android:id="@+id/tv_forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:padding="@dimen/clickable_text_view_padding"
+        android:text="@string/lbl_forgot_password"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/forgot_password_textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_password" />
+
+    <com.aknindustries.shoppingpal.utils.CustomButton
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_background"
+        android:gravity="center"
+        android:paddingTop="@dimen/btn_padding"
+        android:paddingBottom="@dimen/btn_padding"
+        android:text="@string/btn_lbl_login"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/btn_textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_forgot_password" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_login">
+
+        <com.aknindustries.shoppingpal.utils.CustomTextView
+            android:id="@+id/tv_don_t_have_an_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="@dimen/clickable_text_view_padding"
+            android:text="@string/don_t_have_an_account"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="@dimen/lbl_text_view_textSize" />
+
+        <com.aknindustries.shoppingpal.utils.CustomBoldTextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="@dimen/clickable_text_view_padding"
+            android:text="@string/register"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="@dimen/lbl_text_view_textSize" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
