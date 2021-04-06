@@ -25,5 +25,10 @@
         <item name="colorSecondary">@color/accent_pink</item>
         <item name="colorSecondaryVariant">@color/accent_pink</item>
         <item name="colorOnSecondary">@color/black</item>
+
+        <!--    Set back button icon and color    -->
+        <item name="android:homeAsUpIndicator">@drawable/back_button</item>
+        <!--This also makes checkbox outline dark-->
+        <item name="colorControlNormal">@color/black</item>
     </style>
 </resources>
