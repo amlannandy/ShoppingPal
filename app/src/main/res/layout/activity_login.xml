@@ -22,12 +22,28 @@
             android:scaleType="fitXY"
             android:src="@drawable/auth_screens_background" />
 
-        <com.aknindustries.shoppingpal.utils.CustomBoldTextView
+        <LinearLayout
+            android:layout_gravity="center"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textSize="@dimen/title_text_size" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/content_description"
+                android:scaleType="center"
+                android:src="@drawable/logo" />
+
+            <com.aknindustries.shoppingpal.utils.CustomBoldTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textSize="@dimen/title_text_size" />
+
+        </LinearLayout>
 
     </FrameLayout>
 
@@ -45,13 +61,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_email"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="36dp"
         android:hint="@string/et_hint_email_id"
-        android:textColorHint="@color/accent_pink"
+        android:textColorHint="@color/colorSecondaryText"
         app:layout_constraintTop_toBottomOf="@id/title_view">
 
         <com.aknindustries.shoppingpal.utils.CustomEditText
@@ -68,14 +84,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/et_hint_password"
-        android:textColorHint="@color/accent_pink"
+        android:textColorHint="@color/colorSecondaryText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_email">
