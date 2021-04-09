@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Button
@@ -11,8 +12,9 @@ import android.widget.CheckBox
 import android.widget.TextView
 import com.aknindustries.shoppingpal.R
 import com.google.firebase.auth.FirebaseAuth
+import java.lang.Exception
 
-class RegisterActivity : SnackBarActivity() {
+class RegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -39,14 +41,19 @@ class RegisterActivity : SnackBarActivity() {
         val registerButton: Button = findViewById(R.id.btn_register)
         registerButton.setOnClickListener{
             if (validateRegistration()) {
+                try {
+                    showProgressDialog("Registering user")
+                } catch (e : Exception) {
+                    Log.d("Fucked", e.message.toString())
+                }
                 val email = findViewById<TextView>(R.id.et_email).text.toString().trim()
                 val password = findViewById<TextView>(R.id.et_password).text.toString().trim()
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                    hideProgressDialog()
                     if (task.isSuccessful) {
                         showSnackBar("Successfully registered!", false)
                         intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish()
                     } else {

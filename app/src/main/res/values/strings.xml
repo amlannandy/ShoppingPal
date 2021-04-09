@@ -32,4 +32,7 @@
     <!--  Main  -->
     <string name="btn_lbl_logout">Logout</string>
 
+    <!--  Progress Indicator  -->
+    <string name="please_wait">Please Wait&#8230;</string>
+
 </resources>
