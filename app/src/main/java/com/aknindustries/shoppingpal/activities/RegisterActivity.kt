@@ -41,11 +41,7 @@ class RegisterActivity : BaseActivity() {
         val registerButton: Button = findViewById(R.id.btn_register)
         registerButton.setOnClickListener{
             if (validateRegistration()) {
-                try {
-                    showProgressDialog("Registering user")
-                } catch (e : Exception) {
-                    Log.d("Fucked", e.message.toString())
-                }
+                showProgressDialog("Registering user")
                 val email = findViewById<TextView>(R.id.et_email).text.toString().trim()
                 val password = findViewById<TextView>(R.id.et_password).text.toString().trim()
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->

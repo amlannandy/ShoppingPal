@@ -8,6 +8,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.TextView
 import com.aknindustries.shoppingpal.R
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
@@ -34,7 +35,21 @@ class LoginActivity : BaseActivity() {
         // Set on click listen on Login Button
         btn_login.setOnClickListener {
             if (validateLogin()) {
-                showSnackBar("TEst success", false)
+                showProgressDialog("Logging in")
+                val email = findViewById<TextView>(R.id.et_email_id).text.toString().trim()
+                val password = findViewById<TextView>(R.id.et_password).text.toString().trim()
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener{task ->
+                    hideProgressDialog()
+                    if (task.isSuccessful) {
+                        showSnackBar("Successfully registered!", false)
+                        intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        showSnackBar(task.exception!!.message.toString(), true)
+                    }
+                }
             }
         }
     }
