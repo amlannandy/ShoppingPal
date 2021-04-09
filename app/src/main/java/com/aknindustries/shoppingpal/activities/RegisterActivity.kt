@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Button
@@ -12,7 +11,6 @@ import android.widget.CheckBox
 import android.widget.TextView
 import com.aknindustries.shoppingpal.R
 import com.google.firebase.auth.FirebaseAuth
-import java.lang.Exception
 
 class RegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -52,6 +52,12 @@ class LoginActivity : BaseActivity() {
                 }
             }
         }
+
+        // Set on click listener on forgot password
+        tv_forgot_password.setOnClickListener {
+            intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun validateLogin() : Boolean {
