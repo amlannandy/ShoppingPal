@@ -1,5 +1,6 @@
 package com.aknindustries.shoppingpal.activities
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import com.aknindustries.shoppingpal.R
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : SnackBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +30,7 @@ class RegisterActivity : SnackBarActivity() {
         setupActionBar()
 
         // Set on click listener of login button
-        val loginText : TextView = findViewById<TextView>(R.id.tv_login)
+        val loginText : TextView = findViewById(R.id.tv_login)
         loginText.setOnClickListener {
             onBackPressed()
         }
@@ -36,8 +38,22 @@ class RegisterActivity : SnackBarActivity() {
         // Set on click listen on register button
         val registerButton: Button = findViewById(R.id.btn_register)
         registerButton.setOnClickListener{
-            if (validateRegistration())
-                showSnackBar("Registration successful", false)
+            if (validateRegistration()) {
+                val email = findViewById<TextView>(R.id.et_email).text.toString().trim()
+                val password = findViewById<TextView>(R.id.et_password).text.toString().trim()
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        showSnackBar("Successfully registered!", false)
+                        intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        showSnackBar(task.exception!!.message.toString(), true)
+                    }
+                }
+            }
         }
 
     }
@@ -50,30 +66,30 @@ class RegisterActivity : SnackBarActivity() {
     }
 
     private fun validateRegistration() :Boolean {
-        val firstName = findViewById<TextView>(R.id.et_first_name).text.toString()
-        val lastName = findViewById<TextView>(R.id.et_last_name).text.toString()
-        val email = findViewById<TextView>(R.id.et_email).text.toString()
-        val password = findViewById<TextView>(R.id.et_password).text.toString()
-        val confirmPassword = findViewById<TextView>(R.id.et_confirm_password).text.toString()
+        val firstName = findViewById<TextView>(R.id.et_first_name).text.toString().trim()
+        val lastName = findViewById<TextView>(R.id.et_last_name).text.toString().trim()
+        val email = findViewById<TextView>(R.id.et_email).text.toString().trim()
+        val password = findViewById<TextView>(R.id.et_password).text.toString().trim()
+        val confirmPassword = findViewById<TextView>(R.id.et_confirm_password).text.toString().trim()
         val termsAndConditions :Boolean = findViewById<CheckBox>(R.id.cb_terms_and_condition).isChecked
         return when {
-            TextUtils.isEmpty(firstName.trim()) -> {
+            TextUtils.isEmpty(firstName) -> {
                 showSnackBar(resources.getString(R.string.err_msg_enter_first_name), true)
                 false
             }
-            TextUtils.isEmpty(lastName.trim()) -> {
+            TextUtils.isEmpty(lastName) -> {
                 showSnackBar(resources.getString(R.string.err_msg_enter_last_name), true)
                 false
             }
-            TextUtils.isEmpty(email.trim()) -> {
+            TextUtils.isEmpty(email) -> {
                 showSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
-            TextUtils.isEmpty(password.trim()) -> {
+            TextUtils.isEmpty(password) -> {
                 showSnackBar(resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
-            TextUtils.isEmpty(confirmPassword.trim()) -> {
+            TextUtils.isEmpty(confirmPassword) -> {
                 showSnackBar(resources.getString(R.string.err_msg_enter_confirm_password), true)
                 false
             }
@@ -84,7 +100,7 @@ class RegisterActivity : SnackBarActivity() {
                 false
             }
 
-            password.trim() != confirmPassword.trim() -> {
+            password != confirmPassword -> {
                 showSnackBar(resources.getString(R.string.err_msg_password_and_confirm_password_mismatch), true)
                 false
             }

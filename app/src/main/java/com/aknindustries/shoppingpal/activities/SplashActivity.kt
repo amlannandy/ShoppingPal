@@ -8,6 +8,8 @@ import android.os.Handler
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.aknindustries.shoppingpal.R
+import com.google.firebase.auth.FirebaseAuth
+import java.lang.NullPointerException
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +28,12 @@ class SplashActivity : AppCompatActivity() {
 
         @Suppress("DEPRECATION")
         Handler().postDelayed({
-            intent = Intent(this@SplashActivity, LoginActivity::class.java)
+            intent = try {
+                FirebaseAuth.getInstance().currentUser!!
+                Intent(this@SplashActivity, MainActivity::class.java)
+            } catch (e: NullPointerException) {
+                Intent(this@SplashActivity, LoginActivity::class.java)
+            }
             startActivity(intent)
             finish()
         }, 2000)

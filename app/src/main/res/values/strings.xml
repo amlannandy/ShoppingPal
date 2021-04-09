@@ -29,4 +29,7 @@
     <string name="err_msg_password_and_confirm_password_mismatch">Password and confirm password does not match.</string>
     <string name="err_msg_agree_terms_and_condition">Please agree terms and condition.</string>
 
+    <!--  Main  -->
+    <string name="btn_lbl_logout">Logout</string>
+
 </resources>
