@@ -10,7 +10,10 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import com.aknindustries.shoppingpal.R
+import com.aknindustries.shoppingpal.firebase.FireStoreClass
+import com.aknindustries.shoppingpal.models.User
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,17 +43,22 @@ class RegisterActivity : BaseActivity() {
         registerButton.setOnClickListener{
             if (validateRegistration()) {
                 showProgressDialog("Registering user")
-                val email = findViewById<TextView>(R.id.et_email).text.toString().trim()
-                val password = findViewById<TextView>(R.id.et_password).text.toString().trim()
+                val firstName = et_first_name.text.toString().trim()
+                val lastName = et_last_name.text.toString().trim()
+                val email = et_email.text.toString().trim()
+                val password = et_password.text.toString().trim()
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                    hideProgressDialog()
                     if (task.isSuccessful) {
-                        showSnackBar("Successfully registered!", false)
-                        intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                        finish()
+                        val firebaseUser = task.result!!.user!!
+                        val user = User(
+                            id = firebaseUser.uid,
+                            firstName = firstName,
+                            lastName = lastName,
+                            email = email,
+                        )
+                        FireStoreClass().registerUser(this, user)
                     } else {
+                        hideProgressDialog()
                         showSnackBar(task.exception!!.message.toString(), true)
                     }
                 }
@@ -111,5 +119,19 @@ class RegisterActivity : BaseActivity() {
             }
             else -> true
         }
+    }
+
+    fun registrationSuccess() {
+        hideProgressDialog()
+        showSnackBar("Successfully registered!", false)
+        intent = Intent(this@RegisterActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
+    fun registrationFailure(errorMessage : String) {
+        hideProgressDialog()
+        showSnackBar(errorMessage, true)
     }
 }
