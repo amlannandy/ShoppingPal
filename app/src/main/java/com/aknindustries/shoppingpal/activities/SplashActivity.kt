@@ -4,12 +4,10 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.aknindustries.shoppingpal.R
-import com.google.firebase.auth.FirebaseAuth
-import java.lang.NullPointerException
+import com.aknindustries.shoppingpal.firebase.FireStoreClass
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,18 +23,20 @@ class SplashActivity : AppCompatActivity() {
                     WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-
-        @Suppress("DEPRECATION")
-        Handler().postDelayed({
-            intent = try {
-                FirebaseAuth.getInstance().currentUser!!
-                Intent(this@SplashActivity, MainActivity::class.java)
-            } catch (e: NullPointerException) {
-                Intent(this@SplashActivity, LoginActivity::class.java)
-            }
-            startActivity(intent)
-            finish()
-        }, 2000)
+        FireStoreClass().getCurrentUser(this)
 
     }
+
+    fun loadHomeScreen() {
+        intent = Intent(this@SplashActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun loadLoginScreen() {
+        intent = Intent(this@SplashActivity, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }
