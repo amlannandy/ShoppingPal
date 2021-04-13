@@ -8,6 +8,8 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import com.aknindustries.shoppingpal.R
 import com.aknindustries.shoppingpal.firebase.FireStoreClass
+import com.aknindustries.shoppingpal.models.User
+import com.aknindustries.shoppingpal.utils.Constants
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +41,9 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
-    fun loadProfileScreen() {
+    fun loadProfileScreen(user: User) {
         intent = Intent(this@SplashActivity, ProfileActivity::class.java)
+        intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
         startActivity(intent)
         finish()
     }

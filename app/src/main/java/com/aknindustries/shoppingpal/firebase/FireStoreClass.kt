@@ -59,7 +59,7 @@ class FireStoreClass {
                     if (user.profileCompleted)
                         activity.loadHomeScreen()
                     else
-                        activity.loadProfileScreen()
+                        activity.loadProfileScreen(user)
                 }
                 is LoginActivity -> {
                     activity.loginSuccess()
