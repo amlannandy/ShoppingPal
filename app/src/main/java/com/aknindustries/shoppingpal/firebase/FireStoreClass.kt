@@ -56,7 +56,10 @@ class FireStoreClass {
 
             when (activity) {
                 is SplashActivity -> {
-                    activity.loadHomeScreen()
+                    if (user.profileCompleted)
+                        activity.loadHomeScreen()
+                    else
+                        activity.loadProfileScreen()
                 }
                 is LoginActivity -> {
                     activity.loginSuccess()

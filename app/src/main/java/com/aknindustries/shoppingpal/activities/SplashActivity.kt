@@ -39,4 +39,10 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
+    fun loadProfileScreen() {
+        intent = Intent(this@SplashActivity, ProfileActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }

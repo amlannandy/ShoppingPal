@@ -14,4 +14,5 @@
 
     <color name="snack_bar_error">#d72323</color>
     <color name="snack_bar_success">#2cb978</color>
+    <color name="colorLightGrey">#F1F1F1</color>
 </resources>
