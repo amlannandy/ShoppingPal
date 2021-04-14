@@ -47,5 +47,9 @@
     <string name="rb_lbl_female">FEMALE</string>
     <string name="btn_lbl_save">Save</string>
     <string name="read_storage_permission_denied">Oops, you just denied the permission for storage. You can also allow it from settings.</string>
+    <string name="image_selection_failure">Error selecting image</string>
+    <string name="enter_phone_number">Please enter a phone number</string>
+    <string name="invalid_phone_number">Please enter a valid phone number</string>
+    <string name="complete_profile_success">Profile updated!</string>
 
 </resources>

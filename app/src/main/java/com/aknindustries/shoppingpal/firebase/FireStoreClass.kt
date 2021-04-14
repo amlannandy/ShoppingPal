@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import com.aknindustries.shoppingpal.activities.LoginActivity
+import com.aknindustries.shoppingpal.activities.ProfileActivity
 import com.aknindustries.shoppingpal.activities.RegisterActivity
 import com.aknindustries.shoppingpal.activities.SplashActivity
 import com.aknindustries.shoppingpal.models.User
@@ -26,6 +27,27 @@ class FireStoreClass {
         }.addOnFailureListener { exception ->
             activity.registrationFailure(exception.message.toString())
         }
+    }
+
+    fun completeUserRegistration(activity: Activity, userHashMap: HashMap<String, Any>) {
+        mFireStoreClass.collection(Constants.USERS).document(getCurrentUserId()!!)
+            .update(userHashMap)
+            .addOnSuccessListener {
+                when (activity) {
+                    is ProfileActivity -> {
+                        activity.hideProgressDialog()
+                        activity.completeProfileSuccess()
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                when (activity) {
+                    is ProfileActivity -> {
+                        activity.hideProgressDialog()
+                        activity.showSnackBar(e.message.toString(), true)
+                    }
+                }
+            }
     }
 
     fun getCurrentUserId() : String? {
