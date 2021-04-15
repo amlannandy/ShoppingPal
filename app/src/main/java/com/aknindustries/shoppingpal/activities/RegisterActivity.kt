@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import com.aknindustries.shoppingpal.R
-import com.aknindustries.shoppingpal.firebase.FireStoreClass
+import com.aknindustries.shoppingpal.firebase.FireStoreAuthClass
 import com.aknindustries.shoppingpal.models.User
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
@@ -56,7 +56,7 @@ class RegisterActivity : BaseActivity() {
                             lastName = lastName,
                             email = email,
                         )
-                        FireStoreClass().registerUser(this, user)
+                        FireStoreAuthClass().registerUser(this, user)
                     } else {
                         hideProgressDialog()
                         showSnackBar(task.exception!!.message.toString(), true)

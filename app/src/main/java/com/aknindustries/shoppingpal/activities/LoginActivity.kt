@@ -8,7 +8,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.TextView
 import com.aknindustries.shoppingpal.R
-import com.aknindustries.shoppingpal.firebase.FireStoreClass
+import com.aknindustries.shoppingpal.firebase.FireStoreAuthClass
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -42,7 +42,7 @@ class LoginActivity : BaseActivity() {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener{task ->
                     hideProgressDialog()
                     if (task.isSuccessful) {
-                        FireStoreClass().getCurrentUser(this)
+                        FireStoreAuthClass().getCurrentUser(this)
                     } else {
                         showSnackBar(task.exception!!.message.toString(), true)
                     }

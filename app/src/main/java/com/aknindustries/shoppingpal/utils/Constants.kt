@@ -2,7 +2,9 @@ package com.aknindustries.shoppingpal.utils
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.provider.MediaStore
+import android.webkit.MimeTypeMap
 
 object Constants {
 
@@ -17,10 +19,18 @@ object Constants {
     const val FEMALE = "Female"
     const val PHONE = "phone"
     const val GENDER = "gender"
+    const val IMAGE_URL = "imageUrl"
+    const val PROFILE_COMPLETED = "profileCompleted"
+    const val PROFILE_PICTURE_FOLDER = "profile_pictures"
+    const val USER_PROFILE_IMAGE = "USER_PROFILE_IMAGE"
 
     fun showImageChooser(activity: Activity) {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         activity.startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE)
+    }
+
+    fun getFileExtension(activity: Activity, uri: Uri) : String? {
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(activity.contentResolver.getType(uri))
     }
 
 }

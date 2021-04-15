@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.aknindustries.shoppingpal.R
-import com.aknindustries.shoppingpal.firebase.FireStoreClass
+import com.aknindustries.shoppingpal.firebase.FireStoreAuthClass
 import com.aknindustries.shoppingpal.models.User
 import com.aknindustries.shoppingpal.utils.Constants
 
@@ -25,12 +25,12 @@ class SplashActivity : AppCompatActivity() {
                     WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-        FireStoreClass().getCurrentUser(this)
+        FireStoreAuthClass().getCurrentUser(this)
 
     }
 
     fun loadHomeScreen() {
-        intent = Intent(this@SplashActivity, MainActivity::class.java)
+        intent = Intent(this@SplashActivity, DashboardActivity::class.java)
         startActivity(intent)
         finish()
     }

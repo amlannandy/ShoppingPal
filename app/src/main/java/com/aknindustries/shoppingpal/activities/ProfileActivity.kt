@@ -2,13 +2,14 @@ package com.aknindustries.shoppingpal.activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aknindustries.shoppingpal.R
-import com.aknindustries.shoppingpal.firebase.FireStoreClass
+import com.aknindustries.shoppingpal.firebase.FireStoreAuthClass
 import com.aknindustries.shoppingpal.models.User
 import com.aknindustries.shoppingpal.utils.Constants
 import com.aknindustries.shoppingpal.utils.GlideLoader
@@ -18,6 +19,7 @@ import java.io.IOException
 class ProfileActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var mUser : User
+    private var mImageUri : Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,17 +63,8 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                 }
                 R.id.btn_submit -> {
                     if (validateCompleteProfile()) {
-                        val userHashMap = HashMap<String, Any>()
-                        val phone = et_mobile_number.text.toString().trim()
-                        val gender = if (rb_male.isChecked) {
-                            Constants.MALE
-                        } else {
-                            Constants.FEMALE
-                        }
-                        userHashMap[Constants.PHONE] = phone
-                        userHashMap[Constants.GENDER] = gender
                         showProgressDialog(resources.getString(R.string.please_wait))
-                        FireStoreClass().completeUserRegistration(this, userHashMap)
+                        FireStoreAuthClass().uploadImageToCloudStorage(this, mImageUri!!)
                     }
                 }
             }
@@ -95,8 +88,8 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
             if (requestCode == Constants.PICK_IMAGE_REQUEST_CODE) {
                 if (data != null) {
                     try {
-                        val imageUri = data.data!!
-                        GlideLoader(this).loadUserImage(imageUri, iv_user_photo)
+                        mImageUri = data.data!!
+                        GlideLoader(this).loadUserImage(mImageUri!!, iv_user_photo)
                     } catch (e : IOException) {
                         e.printStackTrace()
                         showSnackBar(resources.getString(R.string.image_selection_failure), true)
@@ -117,6 +110,10 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
                 showSnackBar(resources.getString(R.string.invalid_phone_number), true)
                 return false
             }
+            mImageUri == null -> {
+                showSnackBar(resources.getString(R.string.no_profile_image), true)
+                return false
+            }
             else -> true
         }
     }
@@ -126,5 +123,20 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
         intent = Intent(this@ProfileActivity, SplashActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun imageUploadSuccess(imageURL : String) {
+        val userHashMap = HashMap<String, Any>()
+        val phone = et_mobile_number.text.toString().trim()
+        val gender = if (rb_male.isChecked) {
+            Constants.MALE
+        } else {
+            Constants.FEMALE
+        }
+        userHashMap[Constants.PHONE] = phone
+        userHashMap[Constants.GENDER] = gender
+        userHashMap[Constants.IMAGE_URL] = imageURL
+        userHashMap[Constants.PROFILE_COMPLETED] = true
+        FireStoreAuthClass().completeUserRegistration(this, userHashMap)
     }
 }

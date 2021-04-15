@@ -3,6 +3,7 @@ package com.aknindustries.shoppingpal.firebase
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import com.aknindustries.shoppingpal.activities.LoginActivity
 import com.aknindustries.shoppingpal.activities.ProfileActivity
 import com.aknindustries.shoppingpal.activities.RegisterActivity
@@ -12,9 +13,10 @@ import com.aknindustries.shoppingpal.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
 import java.lang.NullPointerException
 
-class FireStoreClass {
+class FireStoreAuthClass {
 
     private val mFireStoreClass = FirebaseFirestore.getInstance()
     private val mFirebaseAuth = FirebaseAuth.getInstance()
@@ -94,6 +96,32 @@ class FireStoreClass {
                 }
             }
         }
+    }
+
+    fun uploadImageToCloudStorage(activity: Activity, imageUri: Uri) {
+        val sRef = FirebaseStorage.getInstance().reference.child(
+            Constants.PROFILE_PICTURE_FOLDER +  "/" + getCurrentUserId() + "/" +
+            Constants.USER_PROFILE_IMAGE + System.currentTimeMillis() + Constants.getFileExtension(activity, imageUri)
+        )
+        sRef.putFile(imageUri)
+            .addOnSuccessListener { taskScreenshot ->
+                taskScreenshot.metadata!!.reference!!.downloadUrl
+                    .addOnSuccessListener { imageUri ->
+                        when (activity) {
+                            is ProfileActivity -> {
+                                activity.imageUploadSuccess(imageUri.toString())
+                            }
+                        }
+                    }
+            }.addOnFailureListener { e ->
+                when (activity) {
+                    is ProfileActivity -> {
+                        activity.hideProgressDialog()
+                        activity.showSnackBar(e.message.toString(), true)
+                    }
+                }
+            }
+
     }
 
     private fun saveUserLocally(activity: Activity, user: User) {

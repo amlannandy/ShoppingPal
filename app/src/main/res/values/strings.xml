@@ -50,6 +50,11 @@
     <string name="image_selection_failure">Error selecting image</string>
     <string name="enter_phone_number">Please enter a phone number</string>
     <string name="invalid_phone_number">Please enter a valid phone number</string>
+    <string name="no_profile_image">Please upload a profile image</string>
     <string name="complete_profile_success">Profile updated!</string>
+    <string name="title_activity_dashboard">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>
