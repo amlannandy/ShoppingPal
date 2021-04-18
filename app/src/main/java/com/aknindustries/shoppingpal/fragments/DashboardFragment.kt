@@ -17,7 +17,7 @@ class DashboardFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
-            textView.text = resources.getString(R.string.title_dashboard)
+        textView.text = resources.getString(R.string.title_dashboard)
         return root
     }
 }
