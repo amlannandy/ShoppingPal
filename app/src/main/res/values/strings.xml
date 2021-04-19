@@ -67,4 +67,9 @@
     <string name="lbl_addresses">Addresses</string>
     <string name="get_user_details_error">Error while fetching profile</string>
 
+    <!--  Products  -->
+    <string name="add_product">Add Product</string>
+    <string name="edit_product">Edit Product</string>
+    <string name="action_add_product">Add Product</string>
+
 </resources>
