@@ -60,4 +60,9 @@
     <string name="please_click_back_again_to_exit">Please click back again to exit</string>
     <string name="action_settings">Settings</string>
 
+    <!--  Settings Screen  -->
+    <string name="title_settings">Settings</string>
+    <string name="lbl_edit">Edit</string>
+    <string name="lbl_addresses">Addresses</string>
+
 </resources>
