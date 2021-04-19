@@ -17,10 +17,15 @@ object Constants {
 
     const val MALE = "Male"
     const val FEMALE = "Female"
+
+    const val FIRST_NAME = "firstName"
+    const val LAST_NAME = "lastName"
+    const val EMAIL = "email"
     const val PHONE = "phone"
     const val GENDER = "gender"
     const val IMAGE_URL = "imageUrl"
     const val PROFILE_COMPLETED = "profileCompleted"
+
     const val PROFILE_PICTURE_FOLDER = "profile_pictures"
     const val USER_PROFILE_IMAGE = "USER_PROFILE_IMAGE"
 

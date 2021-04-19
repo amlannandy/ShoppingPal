@@ -20,7 +20,7 @@
         <activity
             android:name=".activities.ProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBarDark" />
         <activity
             android:name=".activities.ForgotPasswordActivity"
             android:screenOrientation="portrait"
