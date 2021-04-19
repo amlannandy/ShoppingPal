@@ -4,10 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
-import com.aknindustries.shoppingpal.activities.LoginActivity
-import com.aknindustries.shoppingpal.activities.ProfileActivity
-import com.aknindustries.shoppingpal.activities.RegisterActivity
-import com.aknindustries.shoppingpal.activities.SplashActivity
+import com.aknindustries.shoppingpal.activities.*
 import com.aknindustries.shoppingpal.models.User
 import com.aknindustries.shoppingpal.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -28,6 +25,17 @@ class FireStoreAuthClass {
                 activity.registrationSuccess()
         }.addOnFailureListener { exception ->
             activity.registrationFailure(exception.message.toString())
+        }
+    }
+
+    fun loginUser(activity: LoginActivity, email: String, password: String) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener{task ->
+            activity.hideProgressDialog()
+            if (task.isSuccessful) {
+                getCurrentUser(activity)
+            } else {
+                activity.showSnackBar(task.exception!!.message.toString(), true)
+            }
         }
     }
 
@@ -70,6 +78,12 @@ class FireStoreAuthClass {
                     activity.loadLoginScreen()
                     return
                 }
+                is SettingsActivity -> {
+                    activity.getUserDetailsFailure()
+                }
+                is LoginActivity -> {
+                    activity.showSnackBar(e.message.toString(), true)
+                }
             }
         }
         mFireStoreClass.collection(Constants.USERS).document(userId).get().addOnSuccessListener { doc ->
@@ -88,11 +102,20 @@ class FireStoreAuthClass {
                 is LoginActivity -> {
                     activity.loginSuccess()
                 }
+                is SettingsActivity -> {
+                    activity.getUserDetailsSuccess(user)
+                }
             }
-        }.addOnFailureListener{
+        }.addOnFailureListener{ e ->
             when (activity) {
                 is SplashActivity -> {
                     activity.loadLoginScreen()
+                }
+                is LoginActivity -> {
+                    activity.showSnackBar(e.message.toString(), true)
+                }
+                is SettingsActivity -> {
+                    activity.getUserDetailsFailure()
                 }
             }
         }
@@ -124,10 +147,27 @@ class FireStoreAuthClass {
 
     }
 
+    fun logOut(activity: Activity) {
+        deleteUserLocally(activity)
+        mFirebaseAuth.signOut()
+        when (activity) {
+            is SettingsActivity -> {
+                activity.logOutSuccess()
+            }
+        }
+    }
+
     private fun saveUserLocally(activity: Activity, user: User) {
         val sharedPreferences = activity.getSharedPreferences(Constants.APP_PREFERENCES, Context.MODE_PRIVATE)
         val editor : SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(Constants.LOGGED_IN_USERNAME, "${user.firstName} ${user.lastName}")
+        editor.apply()
+    }
+
+    private fun deleteUserLocally(activity: Activity) {
+        val sharedPreferences = activity.getSharedPreferences(Constants.APP_PREFERENCES, Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        editor.remove(Constants.LOGGED_IN_USERNAME)
         editor.apply()
     }
 

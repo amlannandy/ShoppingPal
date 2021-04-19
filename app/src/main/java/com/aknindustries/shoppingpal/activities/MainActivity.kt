@@ -18,12 +18,5 @@ class MainActivity : AppCompatActivity() {
         val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "")!!
         main_text.text = username
 
-        btn_logout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            intent = Intent(this@MainActivity, SplashActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
-        }
     }
 }

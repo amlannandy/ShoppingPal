@@ -9,7 +9,6 @@ import android.view.WindowManager
 import android.widget.TextView
 import com.aknindustries.shoppingpal.R
 import com.aknindustries.shoppingpal.firebase.FireStoreAuthClass
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
@@ -39,14 +38,7 @@ class LoginActivity : BaseActivity() {
                 showProgressDialog("Logging in")
                 val email = findViewById<TextView>(R.id.et_email_id).text.toString().trim()
                 val password = findViewById<TextView>(R.id.et_password).text.toString().trim()
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener{task ->
-                    hideProgressDialog()
-                    if (task.isSuccessful) {
-                        FireStoreAuthClass().getCurrentUser(this)
-                    } else {
-                        showSnackBar(task.exception!!.message.toString(), true)
-                    }
-                }
+                FireStoreAuthClass().loginUser(this, email, password)
             }
         }
 
@@ -79,8 +71,7 @@ class LoginActivity : BaseActivity() {
     }
 
     fun loginSuccess() {
-        showSnackBar("Successfully registered!", false)
-        intent = Intent(this@LoginActivity, MainActivity::class.java)
+        intent = Intent(this@LoginActivity, DashboardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()

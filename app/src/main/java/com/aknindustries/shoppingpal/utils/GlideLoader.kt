@@ -9,9 +9,9 @@ import java.io.IOException
 
 class GlideLoader(val context : Context) {
 
-    fun loadUserImage(imageUri : Uri, imageView: ImageView) {
+    fun loadUserImage(image: Any, imageView: ImageView) {
         try {
-            Glide.with(context).load(Uri.parse(imageUri.toString()))
+            Glide.with(context).load(image)
                 .centerCrop()
                 .placeholder(R.drawable.ic_user_placeholder)
                 .into(imageView)
