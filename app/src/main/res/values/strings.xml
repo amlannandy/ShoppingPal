@@ -78,5 +78,11 @@
     <string name="hint_product_price">Please enter product price</string>
     <string name="hint_product_quantity">Please enter product quantity</string>
     <string name="btn_add_product">CONFIRM</string>
+    <string name="err_product_title">Please provide a title</string>
+    <string name="err_product_description">Please provide a description</string>
+    <string name="err_product_price">Please provide a price</string>
+    <string name="err_product_quantity">Please provide a quantity</string>
+    <string name="err_product_image">Please provide an image</string>
+    <string name="add_product_success">Product added successfully!</string>
 
 </resources>

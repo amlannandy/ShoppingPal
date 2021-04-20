@@ -157,6 +157,11 @@ class FireStoreAuthClass {
         }
     }
 
+    fun getLocalUserName(activity: Activity) : String {
+        val sharedPreferences = activity.getSharedPreferences(Constants.APP_PREFERENCES, Context.MODE_PRIVATE)
+        return sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "")!!
+    }
+
     private fun saveUserLocally(activity: Activity, user: User) {
         val sharedPreferences = activity.getSharedPreferences(Constants.APP_PREFERENCES, Context.MODE_PRIVATE)
         val editor : SharedPreferences.Editor = sharedPreferences.edit()

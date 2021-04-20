@@ -29,6 +29,10 @@ object Constants {
     const val PROFILE_PICTURE_FOLDER = "profile_pictures"
     const val USER_PROFILE_IMAGE = "USER_PROFILE_IMAGE"
 
+    const val PRODUCTS = "products"
+    const val PRODUCT_IMAGES_FOLDER = "product_images"
+    const val PRODUCT_IMAGE = "PRODUCT_IMAGE"
+
     fun showImageChooser(activity: Activity) {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         activity.startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE)

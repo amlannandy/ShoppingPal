@@ -1,12 +1,10 @@
 package com.aknindustries.shoppingpal.activities
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.aknindustries.shoppingpal.R
 import com.aknindustries.shoppingpal.utils.Constants
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
