@@ -72,4 +72,11 @@
     <string name="edit_product">Edit Product</string>
     <string name="action_add_product">Add Product</string>
 
+    <!--  Add Product  -->
+    <string name="hint_product_title">Please enter product title</string>
+    <string name="hint_product_description">Please enter product description</string>
+    <string name="hint_product_price">Please enter product price</string>
+    <string name="hint_product_quantity">Please enter product quantity</string>
+    <string name="btn_add_product">CONFIRM</string>
+
 </resources>

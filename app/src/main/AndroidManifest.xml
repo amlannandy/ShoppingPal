@@ -13,7 +13,7 @@
         <activity
             android:name=".activities.AddProductActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBarDark" />
         <activity
             android:name=".activities.SettingsActivity"
             android:screenOrientation="portrait"
