@@ -12,6 +12,14 @@ class FireStoreProductClass {
 
     private val mFireStoreClass = FirebaseFirestore.getInstance()
 
+    fun fetchAllProducts() {
+        mFireStoreClass.collection(Constants.PRODUCTS).get()
+            .addOnSuccessListener { snapshot ->
+                val docs = snapshot.documents
+               
+            }
+    }
+
     fun addProduct(activity: AddProductActivity, product: Product) {
         product.userId = FireStoreAuthClass().getCurrentUserId()!!
         product.userName = FireStoreAuthClass().getLocalUserName(activity)

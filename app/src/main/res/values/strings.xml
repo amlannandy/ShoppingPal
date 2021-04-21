@@ -85,4 +85,7 @@
     <string name="err_product_image">Please provide an image</string>
     <string name="add_product_success">Product added successfully!</string>
 
+    <string name="no_products_added_yet">No products added yet!</string>
+    <string name="no_dashboard_item_found">No items found!</string>
+
 </resources>
