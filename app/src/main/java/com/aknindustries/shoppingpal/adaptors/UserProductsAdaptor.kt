@@ -35,6 +35,9 @@ class UserProductsAdaptor (
             holder.itemView.ib_delete_product.setOnClickListener {
                 fragment.deleteProductConfirmation(product.id)
             }
+            holder.itemView.item_list_card.setOnClickListener {
+                fragment.goToProductDetails(product.id)
+            }
         }
     }
 

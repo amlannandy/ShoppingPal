@@ -1,8 +1,10 @@
 package com.aknindustries.shoppingpal.firebase
 
+import android.app.Activity
 import android.net.Uri
 import androidx.fragment.app.Fragment
 import com.aknindustries.shoppingpal.activities.AddProductActivity
+import com.aknindustries.shoppingpal.activities.ProductDetailsActivity
 import com.aknindustries.shoppingpal.fragments.DashboardFragment
 import com.aknindustries.shoppingpal.fragments.ProductsFragment
 import com.aknindustries.shoppingpal.models.Product
@@ -14,6 +16,24 @@ import com.google.firebase.storage.FirebaseStorage
 class FireStoreProductClass {
 
     private val mFireStoreClass = FirebaseFirestore.getInstance()
+
+    fun fetchProduct(activity: Activity, productId: String) {
+        mFireStoreClass.collection(Constants.PRODUCTS).document(productId).get()
+            .addOnSuccessListener { doc ->
+                val product = doc.toObject(Product::class.java)
+                when (activity) {
+                    is ProductDetailsActivity -> {
+                        activity.fetchProductSuccess(product!!)
+                    }
+                }
+            }.addOnFailureListener { e ->
+                when (activity) {
+                    is ProductDetailsActivity -> {
+                        activity.fetchProductFailure(e.message.toString())
+                    }
+                }
+            }
+    }
 
     fun fetchProducts(fragment: Fragment) {
         mFireStoreClass.collection(Constants.PRODUCTS).get()

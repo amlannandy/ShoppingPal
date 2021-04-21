@@ -9,9 +9,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aknindustries.shoppingpal.R
 import com.aknindustries.shoppingpal.activities.AddProductActivity
+import com.aknindustries.shoppingpal.activities.ProductDetailsActivity
 import com.aknindustries.shoppingpal.adaptors.UserProductsAdaptor
 import com.aknindustries.shoppingpal.firebase.FireStoreProductClass
 import com.aknindustries.shoppingpal.models.Product
+import com.aknindustries.shoppingpal.utils.Constants
 import kotlinx.android.synthetic.main.fragment_products.*
 
 class ProductsFragment : BaseFragment() {
@@ -117,5 +119,11 @@ class ProductsFragment : BaseFragment() {
             resources.getString(R.string.delete_product_failure),
             Toast.LENGTH_SHORT,
         ).show()
+    }
+
+    fun goToProductDetails(productId : String) {
+        val intent = Intent(requireActivity(), ProductDetailsActivity::class.java)
+        intent.putExtra(Constants.PRODUCT_ID, productId)
+        startActivity(intent)
     }
 }

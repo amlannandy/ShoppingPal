@@ -11,6 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingPal">
         <activity
+            android:name=".activities.ProductDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBarDark" />
+        <activity
             android:name=".activities.AddProductActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBarDark" />

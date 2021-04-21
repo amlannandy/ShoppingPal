@@ -85,6 +85,7 @@
     <string name="err_product_image">Please provide an image</string>
     <string name="add_product_success">Product added successfully!</string>
 
+    <!--  Products List  -->
     <string name="no_products_added_yet">No products added yet!</string>
     <string name="no_dashboard_item_found">No items found!</string>
     <string name="delete_product_success">Product deleted!</string>
@@ -93,5 +94,10 @@
     <string name="delete_product_dialog">Are you sure you want to delete this product?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <!--  Product Details  -->
+    <string name="title_product_details">PRODUCT DETAILS</string>
+    <string name="lbl_product_description">Product Description</string>
+    <string name="lbl_product_details_stock_quantity">Stock Quantity</string>
 
 </resources>

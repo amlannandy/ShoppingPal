@@ -7,6 +7,7 @@
     android:background="@drawable/item_dashboard_background"
     android:gravity="center"
     android:orientation="vertical"
+    android:id="@+id/dashboard_item_card"
     android:padding="@dimen/item_dashboard_padding">
 
     <ImageView

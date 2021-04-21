@@ -6,10 +6,12 @@ import android.util.Log
 import android.view.*
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aknindustries.shoppingpal.R
+import com.aknindustries.shoppingpal.activities.ProductDetailsActivity
 import com.aknindustries.shoppingpal.activities.SettingsActivity
 import com.aknindustries.shoppingpal.adaptors.DashboardItemsAdaptor
 import com.aknindustries.shoppingpal.firebase.FireStoreProductClass
 import com.aknindustries.shoppingpal.models.Product
+import com.aknindustries.shoppingpal.utils.Constants
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : BaseFragment() {
@@ -58,7 +60,7 @@ class DashboardFragment : BaseFragment() {
             tv_no_dashboard_items_found.visibility = View.INVISIBLE
             rv_dashboard_items.layoutManager = GridLayoutManager(activity, 2)
             rv_dashboard_items.setHasFixedSize(true)
-            val adaptorProducts = DashboardItemsAdaptor(requireActivity(), products)
+            val adaptorProducts = DashboardItemsAdaptor(requireActivity(), products, this)
             rv_dashboard_items.adapter = adaptorProducts
         } else {
             rv_dashboard_items.visibility = View.GONE
@@ -69,5 +71,11 @@ class DashboardFragment : BaseFragment() {
     fun fetchProductsFailure(message : String) {
         hideProgressDialog()
         Log.d("Fetch Products Error", message)
+    }
+
+    fun goToProductDetails(productId : String) {
+        val intent = Intent(requireActivity(), ProductDetailsActivity::class.java)
+        intent.putExtra(Constants.PRODUCT_ID, productId)
+        startActivity(intent)
     }
 }
