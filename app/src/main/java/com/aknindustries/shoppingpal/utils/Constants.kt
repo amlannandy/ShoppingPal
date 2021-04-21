@@ -32,6 +32,9 @@ object Constants {
     const val PRODUCTS = "products"
     const val PRODUCT_IMAGES_FOLDER = "product_images"
     const val PRODUCT_IMAGE = "PRODUCT_IMAGE"
+    const val USER_ID = "userId"
+
+    const val RUPEE_SIGN = '₹'
 
     fun showImageChooser(activity: Activity) {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
