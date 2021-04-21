@@ -89,4 +89,21 @@ class FireStoreProductClass {
             }
     }
 
+    fun deleteProduct(fragment: Fragment, productId: String) {
+        mFireStoreClass.collection(Constants.PRODUCTS).document(productId).delete()
+            .addOnSuccessListener {
+                when (fragment) {
+                    is ProductsFragment -> {
+                        fragment.deleteProductSuccess()
+                    }
+                }
+            }.addOnFailureListener {
+                when (fragment) {
+                    is ProductsFragment -> {
+                        fragment.deleteProductFailure()
+                    }
+                }
+            }
+    }
+
 }

@@ -1,9 +1,11 @@
 package com.aknindustries.shoppingpal.fragments
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aknindustries.shoppingpal.R
 import com.aknindustries.shoppingpal.activities.AddProductActivity
@@ -60,7 +62,7 @@ class ProductsFragment : BaseFragment() {
             tv_no_products_found.visibility = View.INVISIBLE
             rv_my_product_items.layoutManager = LinearLayoutManager(activity)
             rv_my_product_items.setHasFixedSize(true)
-            val adaptorProducts = UserProductsAdaptor(requireActivity(), products)
+            val adaptorProducts = UserProductsAdaptor(requireActivity(), products, this)
             rv_my_product_items.adapter = adaptorProducts
         } else {
             rv_my_product_items.visibility = View.GONE
@@ -71,5 +73,49 @@ class ProductsFragment : BaseFragment() {
     fun fetchProductsFailure(message : String) {
         hideProgressDialog()
         Log.d("Fetch Products Error", message)
+    }
+
+    fun deleteProductConfirmation(productId: String) {
+        val builder = AlertDialog.Builder(requireActivity())
+        builder.setTitle(resources.getString(R.string.delete_product_dialog_title))
+        builder.setMessage(resources.getString(R.string.delete_product_dialog))
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        // Yes
+        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
+            deleteProduct(productId)
+            dialogInterface.dismiss()
+        }
+        // No
+        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, _ ->
+
+            dialogInterface.dismiss()
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+    private fun deleteProduct(productId : String) {
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FireStoreProductClass().deleteProduct(this, productId)
+    }
+
+    fun deleteProductSuccess() {
+        hideProgressDialog()
+        Toast.makeText(
+            requireActivity(),
+            resources.getString(R.string.delete_product_success),
+            Toast.LENGTH_SHORT,
+        ).show()
+        fetchProducts()
+    }
+
+    fun deleteProductFailure() {
+        hideProgressDialog()
+        Toast.makeText(
+            requireActivity(),
+            resources.getString(R.string.delete_product_failure),
+            Toast.LENGTH_SHORT,
+        ).show()
     }
 }

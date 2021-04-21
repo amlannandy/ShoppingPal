@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aknindustries.shoppingpal.R
+import com.aknindustries.shoppingpal.fragments.ProductsFragment
 import com.aknindustries.shoppingpal.models.Product
 import com.aknindustries.shoppingpal.utils.Constants
 import com.aknindustries.shoppingpal.utils.GlideLoader
@@ -14,7 +15,8 @@ import kotlinx.android.synthetic.main.item_list_layout.view.*
 
 class UserProductsAdaptor (
     private val context: Context,
-    private val products : ArrayList<Product>
+    private val products : ArrayList<Product>,
+    private val fragment: ProductsFragment,
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -30,6 +32,9 @@ class UserProductsAdaptor (
             GlideLoader(context).loadProductImage(product.imageUrl, holder.itemView.iv_item_image)
             holder.itemView.tv_item_name.text = product.title
             holder.itemView.tv_item_price.text = "${Constants.RUPEE_SIGN} ${product.price}"
+            holder.itemView.ib_delete_product.setOnClickListener {
+                fragment.deleteProductConfirmation(product.id)
+            }
         }
     }
 
