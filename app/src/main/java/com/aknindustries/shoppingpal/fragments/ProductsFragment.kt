@@ -121,9 +121,10 @@ class ProductsFragment : BaseFragment() {
         ).show()
     }
 
-    fun goToProductDetails(productId : String) {
+    fun goToProductDetails(product: Product) {
         val intent = Intent(requireActivity(), ProductDetailsActivity::class.java)
-        intent.putExtra(Constants.PRODUCT_ID, productId)
+        intent.putExtra(Constants.PRODUCT_ID, product.id)
+        intent.putExtra(Constants.PRODUCT_USER_ID, product.userId)
         startActivity(intent)
     }
 }

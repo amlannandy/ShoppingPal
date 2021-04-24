@@ -37,7 +37,7 @@ class DashboardItemsAdaptor(
             holder.itemView.tv_dashboard_item_title.text = product.title
             holder.itemView.tv_dashboard_item_price.text = "${Constants.RUPEE_SIGN} ${product.price}"
             holder.itemView.dashboard_item_card.setOnClickListener {
-                fragment.goToProductDetails(product.id)
+                fragment.goToProductDetails(product)
             }
         }
     }

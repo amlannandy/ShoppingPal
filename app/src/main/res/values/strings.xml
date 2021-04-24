@@ -99,5 +99,6 @@
     <string name="title_product_details">PRODUCT DETAILS</string>
     <string name="lbl_product_description">Product Description</string>
     <string name="lbl_product_details_stock_quantity">Stock Quantity</string>
+    <string name="btn_lbl_add_to_cart">Add to Cart</string>
 
 </resources>

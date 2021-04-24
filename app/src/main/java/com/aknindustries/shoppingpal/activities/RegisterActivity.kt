@@ -124,7 +124,7 @@ class RegisterActivity : BaseActivity() {
     fun registrationSuccess() {
         hideProgressDialog()
         showSnackBar("Successfully registered!", false)
-        intent = Intent(this@RegisterActivity, MainActivity::class.java)
+        intent = Intent(this@RegisterActivity, DashboardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()

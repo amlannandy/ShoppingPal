@@ -21,6 +21,7 @@ class FireStoreProductClass {
         mFireStoreClass.collection(Constants.PRODUCTS).document(productId).get()
             .addOnSuccessListener { doc ->
                 val product = doc.toObject(Product::class.java)
+                product?.id = productId
                 when (activity) {
                     is ProductDetailsActivity -> {
                         activity.fetchProductSuccess(product!!)

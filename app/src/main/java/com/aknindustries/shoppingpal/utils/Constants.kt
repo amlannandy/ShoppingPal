@@ -36,6 +36,7 @@ object Constants {
 
     const val RUPEE_SIGN = '₹'
     const val PRODUCT_ID = "productId"
+    const val PRODUCT_USER_ID = "userId"
 
     fun showImageChooser(activity: Activity) {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

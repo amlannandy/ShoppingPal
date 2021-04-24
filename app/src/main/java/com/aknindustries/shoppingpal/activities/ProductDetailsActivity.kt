@@ -2,7 +2,9 @@ package com.aknindustries.shoppingpal.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View.*
 import com.aknindustries.shoppingpal.R
+import com.aknindustries.shoppingpal.firebase.FireStoreAuthClass
 import com.aknindustries.shoppingpal.firebase.FireStoreProductClass
 import com.aknindustries.shoppingpal.models.Product
 import com.aknindustries.shoppingpal.utils.Constants
@@ -19,7 +21,9 @@ class ProductDetailsActivity : BaseActivity() {
 
         if (intent.hasExtra(Constants.PRODUCT_ID)) {
             val productId = intent.getStringExtra(Constants.PRODUCT_ID)!!
+            val userId = intent.getStringExtra(Constants.PRODUCT_USER_ID)!!
             fetchProduct(productId)
+            verifyProductOwnership(userId)
         }
     }
 
@@ -33,6 +37,13 @@ class ProductDetailsActivity : BaseActivity() {
     private fun fetchProduct(productId : String) {
         showProgressDialog(resources.getString(R.string.please_wait))
         FireStoreProductClass().fetchProduct(this, productId)
+    }
+
+    private fun verifyProductOwnership(productUserId : String) {
+        val currentUserId = FireStoreAuthClass().getCurrentUserId()
+        if (productUserId != currentUserId) {
+            btn_add_to_cart.visibility = VISIBLE
+        }
     }
 
     @SuppressLint("SetTextI18n")
